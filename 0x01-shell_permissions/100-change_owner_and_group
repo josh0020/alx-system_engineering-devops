@@ -1,3 +1,2 @@
 #!/bin/bash
 chmown -hR vincent:staff .
-
