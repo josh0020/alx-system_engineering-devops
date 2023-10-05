@@ -32,19 +32,3 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 504 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
-
-frontend http
-        bind *:80
-        http-request set-header X-Forwarded-Proto http
-        default_backend web-backend
-
-frontend www-https
-        bind *:443 ssl crt /etc/letsencrypt/live/www.joshuakiptoo.tech/fullchain.pem
-        http-request set-header X-Forwarded-Proto https
-        default_backend web-backend
-
-backend web-backend
-        balance roundrobin
-        redirect scheme https if !{ ssl_fc }
-        server 938-web-01 34.203.38.58:80 check
-        server 938-web-02 18.210.13.51:80 check
